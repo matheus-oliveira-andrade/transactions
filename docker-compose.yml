@@ -1,0 +1,21 @@
+version: "3"
+services:
+  transaction-seed:
+    container_name: transactions-seed
+    build:
+      context: ./transactions-seed-app
+    environment:
+      DOTNET_ENVIRONMENT: "Production"
+    restart: always
+    depends_on:
+      - rabbitmq
+
+  rabbitmq:
+    container_name: rabbitMQ
+    image: rabbitmq:3.11.10-management
+    ports:
+      - 5020:15672
+      - 5672:5672
+    environment:
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "123Abc!@#"
