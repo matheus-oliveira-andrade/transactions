@@ -26,16 +26,13 @@ namespace Movements.Domain.Entities
             if (date == DateTime.MinValue || date == DateTime.MaxValue)
                 throw new ArgumentException($"Can not be ${DateTime.MinValue} or ${DateTime.MaxValue}", nameof(date));
 
-            if (value <= 0)
-                throw new ArgumentException("Can not be less or equals 0", nameof(value));
-
             Id = Guid.NewGuid();
             TransactionId = transactionId;
             AccountId = accountId ?? throw new ArgumentNullException(nameof(accountId));
             Date = date;
-            Value = value;
+            Value = Math.Abs(value);
             Category = category ?? throw new ArgumentNullException(nameof(category));
-            Description = description ?? throw new ArgumentNullException(nameof(description));
+            Description = description;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Movements.Domain.Entities;
 using Movements.Domain.Interfaces.Data;
 using Movements.Infrastructure.Data.Models;
@@ -14,10 +15,10 @@ namespace Movements.Infrastructure.Data.Repositories
             _movementsDbContext = movementsDbContext;
         }
 
-        public async Task AddAsync(Movement movement)
+        public async Task AddAsync(Movement movement, CancellationToken cancellationToken = default)
         {
             _movementsDbContext.Movements.Add(movement.ToModel());
-            await _movementsDbContext.SaveChangesAsync();
+            await _movementsDbContext.SaveChangesAsync(cancellationToken);
         }
     }
     

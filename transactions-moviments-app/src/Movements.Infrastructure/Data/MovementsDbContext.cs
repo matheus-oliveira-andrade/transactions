@@ -5,7 +5,7 @@ namespace Movements.Infrastructure.Data
 {
     public class MovementsDbContext : DbContext
     {
-        public DbSet<MovementModel> Movements { get; set; }
+        public virtual DbSet<MovementModel> Movements { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
