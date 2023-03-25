@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movements.Domain.Tests", "t
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movements.Application.Tests", "tests\unit-tests\Movements.Application.Tests\Movements.Application.Tests.csproj", "{D367BB39-4A12-4F3D-87F2-2A7AD7283B86}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movements.AsyncReceiver", "src\Movements.AsyncReceiver\Movements.AsyncReceiver.csproj", "{B76EB059-8674-4A17-BE08-2A81046E579E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 		{D367BB39-4A12-4F3D-87F2-2A7AD7283B86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D367BB39-4A12-4F3D-87F2-2A7AD7283B86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D367BB39-4A12-4F3D-87F2-2A7AD7283B86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B76EB059-8674-4A17-BE08-2A81046E579E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B76EB059-8674-4A17-BE08-2A81046E579E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B76EB059-8674-4A17-BE08-2A81046E579E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B76EB059-8674-4A17-BE08-2A81046E579E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2DE16D98-31E9-4AD6-B2A1-465F24B32625} = {BB2463B4-7D7C-4F16-B2D3-59C9E98BE771}
@@ -63,5 +69,6 @@ Global
 		{A18FE5FD-6614-41FB-9355-25935928D629} = {3C9F444F-2439-4E68-AF40-5A5861F0AA1D}
 		{E02F4C44-4868-43C0-820F-D8A85874A6E6} = {3C9F444F-2439-4E68-AF40-5A5861F0AA1D}
 		{D367BB39-4A12-4F3D-87F2-2A7AD7283B86} = {3C9F444F-2439-4E68-AF40-5A5861F0AA1D}
+		{B76EB059-8674-4A17-BE08-2A81046E579E} = {BB2463B4-7D7C-4F16-B2D3-59C9E98BE771}
 	EndGlobalSection
 EndGlobal
