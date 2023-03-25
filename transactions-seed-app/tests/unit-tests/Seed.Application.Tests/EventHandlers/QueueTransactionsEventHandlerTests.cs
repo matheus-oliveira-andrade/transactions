@@ -49,7 +49,7 @@ namespace Seed.Application.Tests.EventHandlers
 
             // Assert
             _busServiceMock.Verify(x => 
-                x.PublishBatch(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<List<string>>()));
+                x.Publish(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<List<string>>()));
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Seed.Application.EventHandlers
             _logger.LogInformation("Publishing transactions");
             
             var messages = transactions.Select(JsonConvert.SerializeObject).ToList();
-            _busService.PublishBatch(Exchange, Key, messages);
+            _busService.Publish(Exchange, Key, messages);
             
             _logger.LogInformation("Transactions published");
         }

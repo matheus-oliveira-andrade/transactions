@@ -23,33 +23,29 @@ namespace Seed.Infrastructure.Tests.Bus
 
 
         [Fact]
-        public void PublicBatch_ShouldDeclareExchangeAndPublishBatch_WithSuccess()
+        public void Public_ShouldDeclareExchangeAndPublishMessages_WithSuccess()
         {
             // Arrange
             var connectionMock = new Mock<IConnection>(); 
             var modelMock = new Mock<IModel>();
-            var batchMock = new Mock<IBasicPublishBatch>();
 
             connectionMock
                 .Setup(x => x.CreateModel())
                 .Returns(modelMock.Object);
-
             modelMock
-                .Setup(x => x.CreateBasicPublishBatch())
-                .Returns(batchMock.Object);
+                .Setup(x => x.CreateBasicProperties())
+                .Returns(Mock.Of<IBasicProperties>());
             
             _rabbitMqConnectionMock
                 .Setup(x => x.CreateConnection())
                 .Returns(connectionMock.Object);
 
             // Act
-            _busService.PublishBatch("exchange", "key", new List<string> { "message1", "message2"});
+            _busService.Publish("exchange", "key", new List<string> { "message1", "message2"});
 
             // Assert
             modelMock.Verify(x => 
                 x.ExchangeDeclare("exchange", ExchangeType.Fanout, true, false, null));
-
-            batchMock.Verify(x => x.Publish());
         }
     }
 }
