@@ -4,6 +4,6 @@ namespace Seed.Domain.Interfaces.Bus
 {
     public interface IBusService
     {
-        void PublishBatch(string exchangeName, string key, List<string> messages);
+        void Publish(string exchangeName, string key, List<string> messages);
     }
 }
