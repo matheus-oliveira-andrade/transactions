@@ -30,7 +30,7 @@ namespace Movements.Domain.Entities
             TransactionId = transactionId;
             AccountId = accountId ?? throw new ArgumentNullException(nameof(accountId));
             Date = date;
-            Value = Math.Abs(value);
+            Value = value;
             Category = category ?? throw new ArgumentNullException(nameof(category));
             Description = description;
         }

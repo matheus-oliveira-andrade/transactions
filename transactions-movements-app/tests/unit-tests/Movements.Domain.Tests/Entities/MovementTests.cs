@@ -13,7 +13,7 @@ public class MovementTests
         var transactionId = Guid.NewGuid();
         var accountId = "1231-1";
         var today = DateTime.Today;
-        var value = 899_99m;
+        var value = -899_99m;
         var category = "Food";
         var description = "XPTO";
 
