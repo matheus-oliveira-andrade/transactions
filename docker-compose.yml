@@ -10,6 +10,18 @@ services:
     depends_on:
       - rabbitmq
 
+  transaction-movements-async-receiver:
+    container_name: transaction-movements-async-receiver
+    build:
+      context: ./transactions-movements-app
+      dockerfile: Dockerfile.AsyncReceiver
+    environment:
+      DOTNET_ENVIRONMENT: "Production"
+    restart: always
+    depends_on:
+      - rabbitmq
+      - sqlserver
+
   rabbitmq:
     container_name: rabbitMQ
     image: rabbitmq:3.11.10-management
@@ -20,8 +32,8 @@ services:
       RABBITMQ_DEFAULT_USER: "admin"
       RABBITMQ_DEFAULT_PASS: "123Abc!@#"
 
-  sqlserver-transactions:
-    container_name: sqlserverTransactionsDb
+  sqlserver:
+    container_name: sqlserver
     image: mcr.microsoft.com/mssql/server:2022-latest
     ports:
       - 1433:1433
