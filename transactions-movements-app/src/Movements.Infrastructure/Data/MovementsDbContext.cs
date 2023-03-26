@@ -6,6 +6,10 @@ namespace Movements.Infrastructure.Data
     public class MovementsDbContext : DbContext
     {
         public virtual DbSet<MovementModel> Movements { get; set; }
+
+        public MovementsDbContext()
+        {
+        }
         
         public MovementsDbContext(DbContextOptions<MovementsDbContext> options) : base(options)
         {
