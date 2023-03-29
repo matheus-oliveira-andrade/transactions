@@ -32,5 +32,34 @@ namespace Movements.Infrastructure.Tests.Data.Models
             Assert.Equal(entity.Category, result.Category);
             Assert.Equal(entity.Description, result.Description);
         }
+        
+        [Fact]
+        public void FromEntity_ShouldConvertModelToEntity_WithSuccess()
+        {
+            // Arrange
+            var model = new MovementModel
+            {
+                Id = Guid.NewGuid(),
+                AccountId = "1346-5",
+                TransactionId = Guid.NewGuid(),
+                Date = DateTime.Today,
+                Value = 10_89m,
+                Category = "Educação",
+                Description = ""
+            };
+
+            // Act
+            var result = model.FromEntity();
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(model.Id, result.Id);
+            Assert.Equal(model.TransactionId, result.TransactionId);
+            Assert.Equal(model.AccountId, result.AccountId);
+            Assert.Equal(model.Date, result.Date);
+            Assert.Equal(model.Value, result.Value);
+            Assert.Equal(model.Category, result.Category);
+            Assert.Equal(model.Description, result.Description);
+        }
     }
 }
