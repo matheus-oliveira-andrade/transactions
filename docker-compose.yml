@@ -22,6 +22,20 @@ services:
       - rabbitmq
       - sqlserver
 
+  transaction-movements-api:
+    container_name: transaction-movements-api
+    build:
+      context: ./transactions-movements-app
+      dockerfile: Dockerfile.Api
+    environment:
+      DOTNET_ENVIRONMENT: "Production"
+    ports:
+      - 9000:80
+    restart: always
+    depends_on:
+      - rabbitmq
+      - sqlserver
+
   rabbitmq:
     container_name: rabbitMQ
     image: rabbitmq:3.11.10-management

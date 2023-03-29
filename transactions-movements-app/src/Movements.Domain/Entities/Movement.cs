@@ -18,7 +18,8 @@ namespace Movements.Domain.Entities
             DateTime date,
             decimal value,
             string category,
-            string description)
+            string description,
+            Guid? id = null)
         {
             if (transactionId == Guid.Empty)
                 throw new ArgumentException("Can not be empty", nameof(transactionId));
@@ -26,7 +27,7 @@ namespace Movements.Domain.Entities
             if (date == DateTime.MinValue || date == DateTime.MaxValue)
                 throw new ArgumentException($"Can not be ${DateTime.MinValue} or ${DateTime.MaxValue}", nameof(date));
 
-            Id = Guid.NewGuid();
+            Id = id ?? Guid.NewGuid();
             TransactionId = transactionId;
             AccountId = accountId ?? throw new ArgumentNullException(nameof(accountId));
             Date = date;

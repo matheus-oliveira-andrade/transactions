@@ -26,5 +26,14 @@ namespace Movements.Infrastructure.Data.Models
             Category = movement.Category,
             Description = movement.Description
         };
+
+        public static Movement FromEntity(this MovementModel model) => new(
+            model.TransactionId,
+            model.AccountId,
+            model.Date,
+            model.Value,
+            model.Category,
+            model.Description,
+            model.Id);
     }
 }
