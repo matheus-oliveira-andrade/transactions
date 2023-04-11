@@ -30,8 +30,10 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 var app = builder.Build();
 
+app.UsePathBase("/movements");
+
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(opt => opt.SwaggerEndpoint("/movements/swagger/v1/swagger.json","Swagger V1" ));
 
 app.UseHttpsRedirection();
 
