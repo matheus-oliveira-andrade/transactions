@@ -63,7 +63,8 @@ public static class Program
         })
         .UseSerilog((_, _, loggerConfiguration) => loggerConfiguration
             .Enrich.FromLogContext()
-            .WriteTo.Console())
+            .WriteTo.Console()
+            .MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command", Serilog.Events.LogEventLevel.Warning))
         .Build();
 
     public static int Main(string[] args)

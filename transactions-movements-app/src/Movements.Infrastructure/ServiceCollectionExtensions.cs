@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,24 +22,15 @@ namespace Movements.Infrastructure
 
             services.AddDbContext<MovementsDbContext>(options =>
             {
-                options.UseSqlServer(BuildConnectionString(configuration));
+                options.UseNpgsql(BuildConnectionString(configuration));
             });
         }
 
-        public static string BuildConnectionString(IConfiguration configuration)
+        private static string BuildConnectionString(IConfiguration configuration)
         {
             var connectionDbSection = configuration.GetSection("MovementsDb");
 
-            var connectionStringBuilder = new SqlConnectionStringBuilder
-            {
-                DataSource = connectionDbSection["Host"],
-                InitialCatalog = connectionDbSection["InitialCatalog"],
-                UserID = connectionDbSection["User"],
-                Password = connectionDbSection["Password"],
-                TrustServerCertificate = true
-            };
-
-            return connectionStringBuilder.ConnectionString;
+            return $"User ID={connectionDbSection["User"]};Password={connectionDbSection["Password"]};Host={connectionDbSection["Host"]};Port=5432;Database={connectionDbSection["Host"]};Pooling=true;";
         }
     }
 }

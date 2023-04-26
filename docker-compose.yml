@@ -20,7 +20,7 @@ services:
     restart: always
     depends_on:
       - rabbitmq
-      - sqlserver
+      - db
 
   transaction-movements-api:
     container_name: transaction-movements-api
@@ -34,7 +34,7 @@ services:
     restart: always
     depends_on:
       - rabbitmq
-      - sqlserver
+      - db
 
   rabbitmq:
     container_name: rabbitMQ
@@ -46,11 +46,12 @@ services:
       RABBITMQ_DEFAULT_USER: "admin"
       RABBITMQ_DEFAULT_PASS: "123Abc!@#"
 
-  sqlserver:
-    container_name: sqlserver
-    image: mcr.microsoft.com/mssql/server:2022-latest
+  db:
+    container_name: db
+    image: postgres:15.2
     ports:
-      - 1433:1433
+      - 5432:5432
     environment:
-      ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "123Abc!@#"
+      POSTGRES_USER: "xpto"
+      POSTGRES_PASSWORD: "123Abc!@#"    
+      POSTGRES_DB: "TransactionsDb"
