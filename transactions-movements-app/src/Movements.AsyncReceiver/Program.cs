@@ -11,11 +11,14 @@ using Movements.Infrastructure;
 using Movements.Infrastructure.Data;
 using RabbitMQ.Client;
 using Serilog;
+using Serilog.Formatting.Json;
 
 namespace Movements.AsyncMessageReceiver;
 
 public static class Program
 {
+    private const string ApplicationName = "Transactions.Movements.AsyncReceiver";
+    
     private static IHost BuildHost(string[] args) => Host.CreateDefaultBuilder(args)
         .ConfigureServices((ctx, services) =>
         {
@@ -63,7 +66,9 @@ public static class Program
         })
         .UseSerilog((_, _, loggerConfiguration) => loggerConfiguration
             .Enrich.FromLogContext()
-            .WriteTo.Console()
+            .Enrich.WithProperty(nameof(ApplicationName), ApplicationName)
+            .WriteTo.Console(new JsonFormatter())
+            .WriteTo.File(new JsonFormatter(), $"{ApplicationName.Replace(".", "_")}-{DateTime.UtcNow.ToFileTimeUtc()}.log")
             .MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command", Serilog.Events.LogEventLevel.Warning))
         .Build();
 

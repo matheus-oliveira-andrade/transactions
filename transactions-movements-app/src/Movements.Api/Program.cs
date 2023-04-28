@@ -1,16 +1,21 @@
+using System;
+using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Movements.Application;
 using Movements.Infrastructure;
 using Serilog;
+using Serilog.Formatting.Json;
+
+const string applicationName = "Transactions.Movements.Api";
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((context, services, configuration) => configuration
-    .ReadFrom.Configuration(context.Configuration)
-    .ReadFrom.Services(services)
     .Enrich.FromLogContext()
+    .Enrich.WithProperty(nameof(applicationName), applicationName)
     .WriteTo.Console()
+    .WriteTo.File(new JsonFormatter(), $"{AppDomain.CurrentDomain.BaseDirectory}{applicationName.Replace(".", "_")}-{DateTime.UtcNow.ToFileTimeUtc()}.log")
     .MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command", Serilog.Events.LogEventLevel.Warning));
 
 builder.Services.AddInfrastructure(builder.Configuration);
