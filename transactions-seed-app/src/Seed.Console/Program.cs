@@ -1,15 +1,19 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Seed.Application;
 using Seed.Infrastructure;
 using Serilog;
+using Serilog.Formatting.Json;
 
 namespace Seed.Console
 {
     [ExcludeFromCodeCoverage]
     public static class Program
     {
+        private const string ApplicationName = "Transactions.Seed";
+
         private static IHost BuildHost(string[] args) => Host.CreateDefaultBuilder(args)
             .ConfigureServices((ctx, services) =>
             {
@@ -20,7 +24,9 @@ namespace Seed.Console
             })
             .UseSerilog((_, _, loggerConfiguration) => loggerConfiguration
                 .Enrich.FromLogContext()
-                .WriteTo.Console())
+                .Enrich.WithProperty(nameof(ApplicationName), ApplicationName)
+                .WriteTo.Console(new JsonFormatter())
+                .WriteTo.File(new JsonFormatter(), $"{ApplicationName.Replace(".", "_")}-{DateTime.UtcNow.ToFileTimeUtc()}.log"))
             .Build();
 
         public static int Main(string[] args)
