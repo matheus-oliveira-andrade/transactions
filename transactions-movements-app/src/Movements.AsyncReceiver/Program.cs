@@ -68,7 +68,7 @@ public static class Program
             .Enrich.FromLogContext()
             .Enrich.WithProperty(nameof(ApplicationName), ApplicationName)
             .WriteTo.Console(new JsonFormatter())
-            .WriteTo.File(new JsonFormatter(), $"{ApplicationName.Replace(".", "_")}-{DateTime.UtcNow.ToFileTimeUtc()}.log")
+            .WriteTo.File(new JsonFormatter(), $"/logs/{ApplicationName.Replace(".", "_")}.log")
             .MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command", Serilog.Events.LogEventLevel.Warning))
         .Build();
 
