@@ -24,10 +24,9 @@ namespace Seed.Console
             })
             .UseSerilog((_, _, loggerConfiguration) => loggerConfiguration
                 .Enrich.FromLogContext()
-                .WriteTo.Console()
                 .Enrich.WithProperty(nameof(ApplicationName), ApplicationName)
                 .WriteTo.Console(new JsonFormatter())
-                .WriteTo.File(new JsonFormatter(), $"{ApplicationName.Replace(".", "_")}-{DateTime.UtcNow.ToFileTimeUtc()}.log"))
+                .WriteTo.File(new JsonFormatter(), $"/logs/{ApplicationName.Replace(".", "_")}.log"))
             .Build();
 
         public static int Main(string[] args)

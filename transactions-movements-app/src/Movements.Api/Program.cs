@@ -15,7 +15,7 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
     .Enrich.FromLogContext()
     .Enrich.WithProperty(nameof(applicationName), applicationName)
     .WriteTo.Console()
-    .WriteTo.File(new JsonFormatter(), $"{AppDomain.CurrentDomain.BaseDirectory}{applicationName.Replace(".", "_")}-{DateTime.UtcNow.ToFileTimeUtc()}.log")
+    .WriteTo.File(new JsonFormatter(), $"/logs/{applicationName.Replace(".", "_")}.log")
     .MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command", Serilog.Events.LogEventLevel.Warning));
 
 builder.Services.AddInfrastructure(builder.Configuration);
