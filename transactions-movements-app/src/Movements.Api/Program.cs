@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Movements.Application;
@@ -7,44 +5,52 @@ using Movements.Infrastructure;
 using Serilog;
 using Serilog.Formatting.Json;
 
-const string applicationName = "Transactions.Movements.Api";
+namespace Movements.Api;
 
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Host.UseSerilog((context, services, configuration) => configuration
-    .Enrich.FromLogContext()
-    .Enrich.WithProperty(nameof(applicationName), applicationName)
-    .WriteTo.Console()
-    .WriteTo.File(new JsonFormatter(), $"/logs/{applicationName.Replace(".", "_")}.log")
-    .MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command", Serilog.Events.LogEventLevel.Warning));
-
-builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddApplication();
-
-builder.Services.AddControllers();
-
-builder.Services.AddApiVersioning();
-builder.Services.AddVersionedApiExplorer(options =>
+public partial class Program
 {
-    options.GroupNameFormat = "'v'VVV";
-    options.SubstituteApiVersionInUrl = true;
-});
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+    public static void Main(string[] args)
+    {
+        const string applicationName = "Transactions.Movements.Api";
 
-builder.Services.AddRouting(options => options.LowercaseUrls = true);
+        var builder = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
+        builder.Host.UseSerilog((context, services, configuration) => configuration
+            .Enrich.FromLogContext()
+            .Enrich.WithProperty(nameof(applicationName), applicationName)
+            .WriteTo.Console()
+            .WriteTo.File(new JsonFormatter(), $"/logs/{applicationName.Replace(".", "_")}.log")
+            .MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command", Serilog.Events.LogEventLevel.Warning));
 
-app.UsePathBase("/movements");
+        builder.Services.AddInfrastructure(builder.Configuration);
+        builder.Services.AddApplication();
 
-app.UseSwagger();
-app.UseSwaggerUI(opt => opt.SwaggerEndpoint("/movements/swagger/v1/swagger.json","Swagger V1" ));
+        builder.Services.AddControllers();
 
-app.UseHttpsRedirection();
+        builder.Services.AddApiVersioning();
+        builder.Services.AddVersionedApiExplorer(options =>
+        {
+            options.GroupNameFormat = "'v'VVV";
+            options.SubstituteApiVersionInUrl = true;
+        });
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
 
-app.UseAuthorization();
+        builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
-app.MapControllers();
+        var app = builder.Build();
 
-app.Run();
+        app.UsePathBase("/movements");
+
+        app.UseSwagger();
+        app.UseSwaggerUI(opt => opt.SwaggerEndpoint("/movements/swagger/v1/swagger.json", "Swagger V1"));
+
+        app.UseHttpsRedirection();
+
+        app.UseAuthorization();
+
+        app.MapControllers();
+
+        app.Run();
+    }
+}
