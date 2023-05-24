@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movements.Api.Tests", "test
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = " integration-tests", " integration-tests", "{91DB5A0E-39D4-424A-A767-F17AFECEA4D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movements.Application.IntegrationTests", "tests\integration-tests\Movements.Application.IntegrationTests\src\Movements.Application.IntegrationTests\Movements.Application.IntegrationTests.csproj", "{04EBEEF5-B014-437A-BC47-CDB5F4E49470}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movements.Application.IntegrationTests", "tests\integration-tests\Movements.Application.IntegrationTests\Movements.Application.IntegrationTests\Movements.Application.IntegrationTests.csproj", "{04EBEEF5-B014-437A-BC47-CDB5F4E49470}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

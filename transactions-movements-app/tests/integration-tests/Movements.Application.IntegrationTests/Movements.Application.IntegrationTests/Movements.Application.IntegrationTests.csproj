@@ -24,7 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\..\..\src\Movements.Api\Movements.Api.csproj" />
-      <ProjectReference Include="..\..\..\..\..\src\Movements.Application\Movements.Application.csproj" />
+      <ProjectReference Include="..\..\..\..\src\Movements.Api\Movements.Api.csproj" />
+      <ProjectReference Include="..\..\..\..\src\Movements.Application\Movements.Application.csproj" />
     </ItemGroup>
 </Project>
