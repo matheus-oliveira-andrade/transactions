@@ -1,4 +1,4 @@
-using System.Net.Http;
+using System;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -15,11 +15,10 @@ namespace Movements.Api.Tests;
 public class MovementsWebApplicationFixture : IAsyncLifetime
 {
     private readonly WebApplicationFactory<Program> _applicationFactory;
-
-    public HttpClient HttpClient { get; private set; }
+    
     public IMediator Mediator { get; private set; }
     public IMovementRepository MovementRepository { get; private set; }
-    
+
     public MovementsWebApplicationFixture()
     {
         _applicationFactory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
@@ -29,7 +28,7 @@ public class MovementsWebApplicationFixture : IAsyncLifetime
                 services.RemoveAll(typeof(DbContextOptions<MovementsDbContext>));
                 services.AddDbContext<MovementsDbContext>(opt =>
                 {
-                    opt.UseInMemoryDatabase("TransactionsDb");
+                    opt.UseInMemoryDatabase($"TransactionsDb-{Guid.NewGuid()}");
                 });
             });
         });
@@ -41,7 +40,6 @@ public class MovementsWebApplicationFixture : IAsyncLifetime
 
         var serviceProvider = scope.ServiceProvider;
         
-        HttpClient = _applicationFactory.CreateClient();
         Mediator = serviceProvider.GetRequiredService<IMediator>();
         MovementRepository = serviceProvider.GetRequiredService<IMovementRepository>();
         
