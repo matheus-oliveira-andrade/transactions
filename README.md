@@ -29,3 +29,8 @@ Logs of all applications are available in kibana exposed in [`localhost:9001`](l
 - `Fluentd` was used for log aggregation, sending the logs to `Elastic Search`.
 - `Kibana` was used for log visualization.
 - `GitHub Actions` were used for `CI` while the application was being developed, built, and tested on each push.
+
+### Architecture
+
+![image](https://github.com/matheus-oliveira-andrade/transactions/assets/32457879/1ab7e4cd-bb39-4ff9-bf0a-b5a9e4f57d06)
+
