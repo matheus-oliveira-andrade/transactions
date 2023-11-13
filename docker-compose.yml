@@ -9,6 +9,11 @@ services:
     environment:
       DOTNET_ENVIRONMENT: "Production"
     restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 70M
     depends_on:
       - rabbitmq
 
@@ -22,6 +27,11 @@ services:
     environment:
       DOTNET_ENVIRONMENT: "Production"
     restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 90M
     depends_on:
       - rabbitmq
       - db
@@ -38,6 +48,11 @@ services:
     ports:
       - 9000:80
     restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 100M
     depends_on:
       - rabbitmq
       - db
@@ -48,6 +63,11 @@ services:
     ports:
       - 5020:15672
       - 5672:5672
+    deploy:
+      resources:
+        limits:
+          cpus: '0.7'
+          memory: 200M
     environment:
       RABBITMQ_DEFAULT_USER: "admin"
       RABBITMQ_DEFAULT_PASS: "123Abc!@#"
@@ -57,6 +77,11 @@ services:
     image: postgres:15.2
     ports:
       - 5432:5432
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 200M
     environment:
       POSTGRES_USER: "xpto"
       POSTGRES_PASSWORD: "123Abc!@#"
@@ -71,6 +96,11 @@ services:
     volumes:
       - ./fluentd:/fluentd/etc
       - ./logs/:/fluentd/logs
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 200M
     depends_on:
       - transaction-seed
       - transaction-movements-async-receiver
@@ -86,6 +116,11 @@ services:
       discovery.type: "single-node"
       ES_JAVA_OPTS: "-Xms2g -Xmx2g"
       xpack.security.enabled: "false"
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 3G # persistence data in memory
     depends_on:
       - fluentd
 
@@ -97,5 +132,10 @@ services:
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
       ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
     depends_on:
       - elasticsearch
