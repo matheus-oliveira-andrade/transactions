@@ -8,5 +8,4 @@ spec:
       component: movements-api
   ports:
   - port: 9000
-    targetPort: 80
-              
+    targetPort: 8080

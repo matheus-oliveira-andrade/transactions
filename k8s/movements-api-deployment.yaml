@@ -16,7 +16,7 @@ spec:
         - name: movements-api
           image: micrommath/transaction-movements-api
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           env:
             - name: DOTNET_ENVIRONMENT
               value: "Production"
