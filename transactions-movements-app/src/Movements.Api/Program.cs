@@ -15,6 +15,8 @@ public partial class Program
 
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Services.AddHealthChecks();
+        
         builder.Host.UseSerilog((context, services, configuration) => configuration
             .Enrich.FromLogContext()
             .Enrich.WithProperty(nameof(applicationName), applicationName)
@@ -39,6 +41,8 @@ public partial class Program
         builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
         var app = builder.Build();
+
+        app.MapHealthChecks("/healthz");
 
         app.UsePathBase("/movements");
 
