@@ -14,38 +14,16 @@ Movements api docs are exposed in [`localhost:9000/movements/swagger`](localhost
 
 Logs of all applications are available in kibana exposed in [`localhost:9001`](localhost:9001)
 
-### How to run on Kubernetes using docker-desktop
-
-1 - execute file [`build-push.sh`](build-push.sh) to build and push all docker images to docker hub
-   ```bash
-   ./build-push.sh # optional
-   ```   
-2 - install ingress controller `ingress-nginx`
-
-   ```bash
-   # docs: https://kubernetes.github.io/ingress-nginx/deploy/#quick-start
-   kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/cloud/deploy.yaml
-
-   ```
-
-3 - execute file [`/k8s/create-secrets.sh`](/k8s/create-secrets.sh) to create secrets used by containers
-   ```bash
-   ./k8s/create-secrets.sh
-   ```   
-4 - Create all k8s resources
-   ```bash
-   kubectl apply -f k8s
-   ```   
-5 - Access movements public API 
-   - swagger [http://localhost/movements/swagger](http://localhost/movements/swagger)
-   - [movement report endpoint](http://localhost/movements/v1/report/123456-78)
-
 
 ##### Configuring index pattern:
    - Access [`localhost:9001/app/management/kibana/indexPatterns`](localhost:9001/app/management/kibana/indexPatterns)
    - `Create data view`
    - Type `fluentd-logs` in name
    - `Create data view` button
+
+### Using kubernetes version
+
+[Transactions kubernetes](https://github.com/matheus-oliveira-andrade/transactions-k8s)
 
 ### Technologies
 
